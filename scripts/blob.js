@@ -1,6 +1,8 @@
+let size = 1;
 function Blob(x, y, r, colour) {
 	this.pos = createVector(x, y);
 	this.r = r;
+	this.vel = createVector(0,0);
 	this.update = function () {
 		/* updates the place of the bubble every frame */
 		// let vel; // velocity
@@ -22,20 +24,23 @@ function Blob(x, y, r, colour) {
 		// } else {
 		// 	vel = createVector(mouseX - width / 2, mouseY - height / 2);
 		// };
-		vel = createVector(mouseX - width / 2, mouseY - height / 2);
-
-		vel.setMag(5);
-		this.pos.add(vel);
+		newVel = createVector(mouseX - width / 2, mouseY - height / 2);
+		newVel.setMag(5);
+		this.vel.lerp(newVel, 0.1)
+		this.pos.add(this.vel);
 	}
 	this.show = function () {
 		/* makes the bubble appear */
+		noStroke();
 		fill(colour);
 		ellipse(this.pos.x, this.pos.y, this.r * 2);
 	}
 	this.tour = function () {
 		/* makes the bubble stay centered and the background move instead */
 		translate(width / 2, height / 2);
-		scale(40 / (this.r * 0.3));
+		let newSize = 40 / this.r;
+		size = lerp(size, newSize, 0.1);
+		scale(size * 2 );
 		translate(-this.pos.x, -this.pos.y);
 	}
 	this.eats = function (other) {

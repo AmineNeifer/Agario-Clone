@@ -6,7 +6,7 @@ function setup() {
 	blob = new Blob(0, 0, 40, 'red');
 
 	for (let i = 0; i < 200; i++) {
-		blobs[i] = new Blob(random(-width, width), random(-height, height), 30, "green");
+		blobs[i] = new Blob(random(-width, width), random(-height, height), 10, "green");
 	}
 }
 
@@ -24,7 +24,7 @@ function draw() {
 		blobs[i].show();
 		if (blob.eats(blobs[i])) {
 			blobs.splice(i, 1);
-			blobs.push(new Blob(random(-width, width), random(-height, height), 30, "green"));
+			blobs.push(new Blob(random(-width, width), random(-height, height), 10, "green"));
 		}
 
 	}
